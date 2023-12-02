@@ -20,7 +20,7 @@ class DatabaseHelper {
     );
   }
 
-  //Create database
+  // Create database
   void _onCreate(Database db, int version) async {
     await db.execute(
       'CREATE TABLE foods(id INTEGER PRIMARY KEY, name TEXT, calories INTEGER, date TEXT)',
@@ -28,11 +28,11 @@ class DatabaseHelper {
     await _insertInitialFoodItems(db);
   }
 
-  void _onUpgrade(Database db, int oldVersion, int newVersion) async {
+  void _onUpgrade(tabase db, int oldVersion, int newVersion) async {
     // Handle database upgrades if needed.
   }
 
-  //Initialize database with food
+  // Initialize database with food
   Future<void> _insertInitialFoodItems(Database db) async {
     final foodItemsList = [
       {'name': 'Blueberries (1 cup)', 'calories': 85},
@@ -67,7 +67,7 @@ class DatabaseHelper {
     }
   }
 
-  //Add food to database
+  // Add food to database
   Future<void> insertFood(String name, int calories, String date) async {
     final db = await database;
     await db.insert('foods', {'name': name, 'calories': calories, 'date': date});
@@ -78,14 +78,14 @@ class DatabaseHelper {
     return db.query('foods');
   }
 
-  //Get all food plan for a date
+  // Get all food plan for a date
   Future<List<Food>> getMealPlanForDate(String date) async {
     final db = await database;
     final result = await db.query('foods', where: 'date = ?', whereArgs: [date]);
     return result.map((map) => Food.fromMap(map)).toList();
   }
 
-  //Update food in database
+  // Update food in database
   Future<void> updateFood(int id, String name, int calories, String date) async {
     final db = await database;
     await db.update(
@@ -96,7 +96,7 @@ class DatabaseHelper {
     );
   }
 
-  //Delete food from db
+  // Delete food from db
   Future<void> deleteFood(int id) async {
     final db = await database;
     await db.delete('foods', where: 'id = ?', whereArgs: [id]);

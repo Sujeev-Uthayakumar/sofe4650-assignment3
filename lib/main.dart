@@ -30,11 +30,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //Initialize database
+  // Initialize database
   final dbHelper = DatabaseHelper();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  //Initialize variables
+  // Initialize variables
   int targetCalories = 0;
   DateTime selectedDate = DateTime.now();
   int totalConsumedCalories = 0;
@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
     _loadTotalConsumedCalories();
   }
 
-  //Custom function to pick date
+  // Custom function to pick date
   void _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  //Custom function to load total calories after food items are added
+  // Custom function to load total calories after food items are added
   void _loadTotalConsumedCalories() async {
     final consumedFoods =
     await dbHelper.getMealPlanForDate(_formatDate(selectedDate));
@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return DateFormat('yyyy-MM-dd').format(date);
   }
 
-  //Custom function which builds a dialog box full of foods
+  // Custom function which builds a dialog box full of foods
   Future<void> _showFoodSelectionDialog() async {
     List<Map<String, dynamic>> foods = await dbHelper.getFoods();
 
@@ -118,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
     Navigator.of(_scaffoldKey.currentContext!).pop();
   }
 
-  //Custom function which allows the addition of food
+  // Custom function which allows the addition of food
   void _addFood() async {
 
     if (selectedDate == null) {
@@ -126,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
       return;
     }
 
-    //Check if target calories is inputted
+    // Check if target calories is inputted
     if (targetCalories==0){
       _showSnackBar('Target calories must be filled.');
       return;
@@ -141,17 +141,17 @@ class _MyHomePageState extends State<MyHomePage> {
         return;
       }
 
-      //Insert food item to database
+      // Insert food item to database
       await dbHelper.insertFood(
         foodController.text,
         calories,
         _formatDate(selectedDate),
       );
 
-      //Update total calories
+      // Update total calories
       _loadTotalConsumedCalories();
 
-      //reset state
+      // Reset state
       setState(() {
         foodController.text = '';
         calories = 0;
@@ -159,15 +159,15 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  //Custom function to remove food
+  // Custom function to remove food
   void _deleteFood(int calories) {
-    //remove food from state
+    // Remove food from state
     setState(() {
       totalConsumedCalories -= calories;
     });
   }
 
-  //Custom function which switch pages
+  // Custom function which switch pages
   void _viewMealPlan() {
     Navigator.push(
       context,

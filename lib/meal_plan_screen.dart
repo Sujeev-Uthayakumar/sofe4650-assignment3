@@ -25,7 +25,7 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
     _loadMealPlan();
   }
 
-  //Function to load all the food item based on date
+  // Function to load all the food item based on date
   void _loadMealPlan() async {
     final loadedMealPlan =
     await dbHelper.getMealPlanForDate(_formatDate(widget.selectedDate));
@@ -38,7 +38,7 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
     return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
   }
 
-  //Custom function which allows food items to be updated
+  // Custom function which allows food items to be updated
   void _updateFood(int id, String currentName, int currentCalories) {
     Food selectedFoodItem = mealPlan.firstWhere((food) => food.id == id);
 
@@ -105,7 +105,7 @@ class _MealPlanScreenState extends State<MealPlanScreen> {
     );
   }
 
-  //Custom function which deletes food item
+  // Custom function which deletes food item
   void _deleteFood(int id, int calories) async {
     await dbHelper.deleteFood(id);
     _loadMealPlan();
